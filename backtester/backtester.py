@@ -78,4 +78,4 @@ class Backtester:
 # مثال استفاده:
 if __name__ == "__main__":
     # اینجا می‌تونی تست کنی
-    pass
+    pass    
