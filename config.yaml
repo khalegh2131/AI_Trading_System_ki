@@ -1,4 +1,26 @@
-# D:\AI\AI_Trading_System_ki\config.yaml
+app:
+  host: "127.0.0.1"
+  port: 8000
+
+paths:
+  log_dir: "./logs"
+
+vpn:
+  servers_url: "https://example.com/v2ray_subscribe"
+  test_exchange: "binance"
+  switch_interval: 600
+
+api_keys:
+  binance: "YOUR_BINANCE_API_KEY"
+  kucoin: "YOUR_KUCOIN_API_KEY"
+
+strategies:
+  active: "sample_strategy"
+  params:
+    sample_strategy:
+      symbol: "BTCUSDT"
+      timeframe: "1h"
+      risk: 0.01# D:\AI\AI_Trading_System_ki\config.yaml
 app:
   name: AI_Trading_System_v7
   version: 7.0.0
