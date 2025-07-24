@@ -16,10 +16,10 @@ class APIHub:
         self.switch_api()
         
     def _load_apis(self) -> List[Dict]:
-        """Load API list from config"""
+        """بارگذاری لیست APIها از فایل تنظیمات"""
         apis = []
         
-        # Load Forex APIs
+        # بارگذاری APIهای فارکس
         for forex_api in self.config.get('apis', {}).get('forex', []):
             apis.append({
                 'name': forex_api['name'],
@@ -30,7 +30,7 @@ class APIHub:
                 'ping_url': forex_api.get('ping_url', '')
             })
             
-        # Load Crypto APIs
+        # بارگذاری APIهای کریپتو
         for crypto_api in self.config.get('apis', {}).get('crypto', []):
             apis.append({
                 'name': crypto_api['name'],
@@ -44,8 +44,8 @@ class APIHub:
         return apis
 
     def switch_api(self) -> bool:
-        """Switch to best available API"""
-        self.logger.info("Testing APIs for connection...")
+        """سوییچ به بهترین API در دسترس"""
+        self.logger.info("در حال تست APIها برای اتصال...")
         
         for api in self.apis:
             try:
@@ -53,28 +53,28 @@ class APIHub:
                 if not ping_url:
                     continue
                     
-                # Test connection with short timeout
+                # تست اتصال با timeout کم
                 response = requests.get(ping_url, timeout=5)
                 if response.status_code == 200:
                     self.current_api = api
-                    self.logger.info(f"✅ Connected to: {api['name']}")
+                    self.logger.info(f"✅ متصل شد به: {api['name']}")
                     return True
                     
             except Exception as e:
-                self.logger.warning(f"❌ {api['name']} not available: {str(e)}")
+                self.logger.warning(f"❌ {api['name']} در دسترس نیست: {str(e)}")
                 continue
                 
-        self.logger.error("⚠️ No API available!")
+        self.logger.error("⚠️ هیچ APIای در دسترس نیست!")
         return False
 
     def fetch_ohlcv(self, symbol: str = "BTCUSDT", timeframe: str = "1h", limit: int = 100) -> Optional[List]:
-        """Fetch OHLCV data from current API"""
+        """دریافت داده OHLCV از API فعلی"""
         if not self.current_api:
             if not self.switch_api():
                 return None
                 
         try:
-            # Binance candle data path
+            # مسیر داده‌های کندل برای Binance
             if 'binance' in self.current_api['name'].lower():
                 url = f"{self.current_api['base_url']}/klines"
                 params = {
@@ -86,9 +86,9 @@ class APIHub:
                 response = requests.get(url, params=params, timeout=10)
                 if response.status_code == 200:
                     data = response.json()
-                    # Convert to standard format
+                    # تبدیل به فرمت استاندارد
                     ohlcv = []
-                    for item in data:
+                    for item in 
                         ohlcv.append({
                             'timestamp': int(item[0]),
                             'open': float(item[1]),
@@ -100,37 +100,27 @@ class APIHub:
                     return ohlcv
                     
         except Exception as e:
-            self.logger.error(f"Error fetching data from {self.current_api['name']}: {str(e)}")
-            # Try to switch API
+            self.logger.error(f"خطا در دریافت داده از {self.current_api['name']}: {str(e)}")
+            # تلاش برای سوییچ API
             if self.switch_api():
                 return self.fetch_ohlcv(symbol, timeframe, limit)
                 
         return None
 
-    def place_order(self, symbol: str, side: str, quantity: float, price: float = None) -> Optional[Dict]:
-        """Place order (for future versions)"""
-        # Implementation for future
-        pass
-
-    def get_balance(self) -> Optional[Dict]:
-        """Get balance (for future versions)"""
-        # Implementation for future
-        pass
-
-# Example usage:
+# مثال استفاده:
 if __name__ == "__main__":
-    # Load config
+    # بارگذاری config
     import yaml
     with open("config.yaml", "r") as f:
         config = yaml.safe_load(f)
     
-    # Create API Hub
+    # ایجاد API Hub
     api_hub = APIHub(config)
     
-    # Fetch BTC data
+    # دریافت داده‌های BTC
     data = api_hub.fetch_ohlcv("BTCUSDT", "1h", 10)
     if data:
-        print(f"Fetched {len(data)} candles")
-        print(data[0])  # Show first candle
+        print(f"دریافت شد {len(data)} کندل")
+        print(data[0])  # نمایش اولین کندل
     else:
-        print("No data fetched")
+        print("داده‌ای دریافت نشد")
