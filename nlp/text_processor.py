@@ -1,5 +1,9 @@
 # D:\AI\AI_Trading_System_ki\nlp\text_processor.py
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import re
 import string
 from typing import List

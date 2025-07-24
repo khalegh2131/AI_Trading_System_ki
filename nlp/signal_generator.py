@@ -1,9 +1,22 @@
-
 # D:\AI\AI_Trading_System_ki\nlp\signal_generator.py
+
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from typing import Dict, List
 import logging
-from utils.logger import get_logger
+
+# محلی‌سازی logger
+def get_logger(name: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+    return logger
 
 class SignalGenerator:
     def __init__(self):

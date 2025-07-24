@@ -2,6 +2,7 @@
 
 import re
 from datetime import datetime
+from typing import List, Dict
 
 def extract_symbols_from_text(text: str) -> List[str]:
     """استخراج نمادهای ارز دیجیتال از متن"""
@@ -25,9 +26,3 @@ def format_news_for_display(news_item: Dict) -> str:
 📅 {news_item.get('published', 'بدون تاریخ')}
 🔗 {news_item.get('link', 'بدون لینک')}
     """.strip()
-
-# تست عملی:
-if __name__ == "__main__":
-    sample_text = "Bitcoin (BTC) and Ethereum (ETH) prices are rising"
-    symbols = extract_symbols_from_text(sample_text)
-    print("نمادهای یافته شده:", symbols)

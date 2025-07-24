@@ -1,11 +1,25 @@
 # D:\AI\AI_Trading_System_ki\nlp\news_scraper.py
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import requests
 from bs4 import BeautifulSoup
 import feedparser
 from datetime import datetime, timedelta
 import logging
-from utils.logger import get_logger
+
+# محلی‌سازی logger
+def get_logger(name: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+    return logger
 
 class NewsScraper:
     def __init__(self):

@@ -1,10 +1,24 @@
 # D:\AI\AI_Trading_System_ki\nlp\sentiment_analyzer.py
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from typing import Dict, List
 import logging
-from utils.logger import get_logger
+
+# محلی‌سازی logger
+def get_logger(name: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+    return logger
 
 class SentimentAnalyzer:
     def __init__(self):

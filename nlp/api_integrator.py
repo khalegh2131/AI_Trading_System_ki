@@ -1,11 +1,25 @@
 # D:\AI\AI_Trading_System_ki\nlp\api_integrator.py
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import openai
 import requests
 import json
 from typing import Dict, Optional
 import logging
-from utils.logger import get_logger
+
+# محلی‌سازی logger
+def get_logger(name: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+    return logger
 
 class APIIntegrator:
     def __init__(self, config: dict):
