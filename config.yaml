@@ -1,0 +1,48 @@
+# D:\AI\AI_Trading_System_ki\config.yaml
+app:
+  name: AI_Trading_System_v7
+  version: 7.0.0
+  debug: false
+  host: 0.0.0.0
+  port: 8050
+
+paths:
+  log_dir: logs
+  model_dir: models
+  data_dir: data
+
+exchanges:
+  binance:
+    sandbox: true
+    api_key: "encrypted:<base64_enc>"
+    secret: "encrypted:<base64_enc>"
+    password: null
+  bybit:
+    sandbox: false
+    api_key: "encrypted:<base64_enc>"
+    secret: "encrypted:<base64_enc>"
+
+pairs:
+  - symbol: BTC/USDT
+    timeframe: 15m
+    enabled: true
+  - symbol: ETH/USDT
+    timeframe: 1h
+    enabled: true
+
+vpn:
+  subscription_url: "https://example.com/subscription.txt"
+  check_interval: 300
+  test_url: "https://api.binance.com/api/v3/ping"
+
+sentiment:
+  provider: "openai"        # or "vader"
+  openai_key: "encrypted:<base64_enc>"
+  news_keywords:
+    - bitcoin
+    - ethereum
+
+backtest:
+  default_cash: 10000
+  commission: 0.001
+  slippage: 0.0005

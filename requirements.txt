@@ -1,0 +1,35 @@
+# ===== Core =====
+dash==3.1.1
+dash-bootstrap-components==1.6.0
+flask==3.0.3
+pyyaml==6.0.1
+pydantic==2.7.4
+uvicorn==0.30.1
+
+# ===== Exchange APIs =====
+ccxt==4.3.44               
+websocket-client==1.8.0
+
+# ===== AI / ML =====
+torch==2.3.1+cpu         
+stable-baselines3==2.3.0
+gymnasium==0.29.1
+scikit-learn==1.5.0
+pandas==2.2.2
+numpy==1.26.4
+
+# ===== NLP / Sentiment =====
+transformers==4.42.3
+vaderSentiment==3.3.2
+nltk==3.8.1
+openai==1.35.3       # ===== VPN =====
+requests==2.32.3
+pyv2ray==0.1.0           
+# ===== Security =====
+cryptography==42.0.8
+keyring==25.2.1
+
+# ===== Utils =====
+schedule==1.2.2
+colorama==0.4.6
+rich==13.7.1
