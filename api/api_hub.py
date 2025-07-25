@@ -16,7 +16,7 @@ class APIHub:
         self.switch_api()
         
     def _load_apis(self) -> List[Dict]:
-        """بارگذاری لیست APIها از فایل تنظیمات"""
+        """بارگذاری لیست APIها از config"""
         apis = []
         
         # بارگذاری APIهای فارکس
@@ -76,7 +76,7 @@ class APIHub:
         try:
             # مسیر داده‌های کندل برای Binance
             if 'binance' in self.current_api['name'].lower():
-                url = f"{self.current_api['base_url']}/klines"
+                url = f"{self.current_api['base_url']}/api/v3/klines"
                 params = {
                     'symbol': symbol,
                     'interval': timeframe,
@@ -88,7 +88,7 @@ class APIHub:
                     data = response.json()
                     # تبدیل به فرمت استاندارد
                     ohlcv = []
-                    for item in 
+                    for item in data:  # ✅ این خط اصلاح شد
                         ohlcv.append({
                             'timestamp': int(item[0]),
                             'open': float(item[1]),
@@ -106,6 +106,16 @@ class APIHub:
                 return self.fetch_ohlcv(symbol, timeframe, limit)
                 
         return None
+
+    def place_order(self, symbol: str, side: str, quantity: float, price: float = None) -> Optional[Dict]:
+        """ثبت سفارش (برای نسخه‌های بعدی)"""
+        # پیاده‌سازی در آینده
+        pass
+
+    def get_balance(self) -> Optional[Dict]:
+        """دریافت موجودی (برای نسخه‌های بعدی)"""
+        # پیاده‌سازی در آینده
+        pass
 
 # مثال استفاده:
 if __name__ == "__main__":
